@@ -1,7 +1,7 @@
 import "./globals.css";
 import { ReactNode } from 'react';
-import Navbar from "./Component/navbar/page";
-import Footer from "./Component/footer/page";
+import Navbar from "./Component/navbar";
+import Footer from "./Component/footer";
 
 export const metadata = {
   title: "High Precision",
