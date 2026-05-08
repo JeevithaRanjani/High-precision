@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { Suspense } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { FaCogs, FaTools, FaRulerCombined, FaIndustry, FaRocket } from "react-icons/fa";
@@ -11,14 +11,14 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 });
 
-export default function InfrastructurePage() {
+function InfrastructurePageContent() {
   const searchParams = useSearchParams();
 
   const tabs = [
     {
       name: "Machining Infrastructure",
       icon: <FaCogs />,
-      image: "/assets/about/infra-machining.jpg",
+      image: "/assests/about/infra-machining.jpg",
       title: "Heavy & Precision Machining",
       desc: "Engineered machining floor for components up to 6 tons.",
       stats: [
@@ -35,7 +35,7 @@ export default function InfrastructurePage() {
     {
       name: "Fabrications",
       icon: <FaTools />,
-      image: "/assets/about/infra-fabrication.jpg",
+      image: "/assests/about/infra-fabrication.jpg",
       title: "Advanced Fabrication",
       desc: "High strength fabrication with precision welding.",
       stats: [
@@ -49,7 +49,7 @@ export default function InfrastructurePage() {
     {
       name: "CMM & Instruments",
       icon: <FaRulerCombined />,
-      image: "/assets/about/infra-capabilities.jpg",
+      image: "/assests/about/infra-capabilities.jpg",
       title: "Precision Measurement",
       desc: "Advanced metrology systems ensuring accuracy.",
       stats: [{ label: "Accuracy", value: "±2 μm" }],
@@ -58,7 +58,7 @@ export default function InfrastructurePage() {
     {
       name: "Manufacturing solution & Exports",
       icon: <FaIndustry />,
-      image: "/assets/home/infra-exports.jpg",
+      image: "/assests/home/infra-exports.jpg",
       title: "End-to-End Manufacturing",
       desc: "Complete solution from raw to finished product.",
       stats: [{ label: "Projects", value: "100+" }],
@@ -67,7 +67,7 @@ export default function InfrastructurePage() {
     {
       name: "Capabilities",
       icon: <FaRocket />,
-      image: "/assets/home/infra-cmm.jpg",
+      image: "/assests/home/infra-cmm.jpg",
       title: "Engineering Capabilities",
       desc: "High-end machining with multi-axis systems.",
       stats: [{ label: "Axis", value: "5 Axis" }],
@@ -97,17 +97,27 @@ export default function InfrastructurePage() {
       {/* HERO */}
       <section className="relative w-full h-[90vh] overflow-hidden">
         <Image
-          src="/assets/about/infra-capabilities.jpg"
+          src="/assests/about/infra-capabilities.jpg"
           alt=""
           fill
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/50" />
 
-        <div className="relative z-10 max-w-7xl mx-auto h-full flex items-center px-6">
-          <h1 className={`${spaceGrotesk.className} text-6xl font-bold`}>
-            Infrastructure <span className="text-blue-500">Overview</span>
+             <div className="relative z-10 max-w-7xl mx-auto h-full flex flex-col justify-center px-6 md:px-9">
+          <p className="text-blue-500 text-[11px] font-mono tracking-[6px] mt-50 mb-6 flex items-center gap-3">
+            <span className="w-10 h-[1px] bg-blue-500"></span>
+            CATALOG • 12 COMPONENTS
+          </p>
+
+          <h1 className={`${spaceGrotesk.className} text-[54px] md:text-[80px] font-bold leading-[1.05]`}>
+            Products & <span className=" text-shine text-blue-500">Services</span>
           </h1>
+
+          <p className={`${spaceGrotesk.className} mt-6 text-gray-300 text-[16px] max-w-xl leading-relaxed`}>
+            Twelve flagship components, four business segments, one obsession
+            with sub-micron precision.
+          </p>
         </div>
       </section>
 
@@ -179,5 +189,13 @@ export default function InfrastructurePage() {
         </div>
       </section>
     </>
+  );
+}
+
+export default function InfrastructurePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black" />}>
+      <InfrastructurePageContent />
+    </Suspense>
   );
 }
