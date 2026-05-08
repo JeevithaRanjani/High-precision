@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { Award, Wrench,  ShieldCheck, BadgeCheck, Settings, Truck, Target, Factory, TrendingUp } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
@@ -295,24 +295,25 @@ export default function Home() {
   const visibleCards = 3;
   const maxIndex = products.length - visibleCards;
 
-  // 👉 NEXT
-  const nextSlide = () => {
-    setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-  };
 
-  // 👉 PREV
-  const prevSlide = () => {
-    setIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
-  };
+// 👉 NEXT
+const nextSlide = useCallback(() => {
+  setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+}, [maxIndex]);
 
-  // 🔥 AUTO SLIDE
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 3000);
+// 👉 PREV
+const prevSlide = useCallback(() => {
+  setIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+}, [maxIndex]);
 
-    return () => clearInterval(interval);
-  }, [index]);
+// 🔥 AUTO SLIDE
+useEffect(() => {
+  const interval = setInterval(() => {
+    nextSlide();
+  }, 3000);
+
+  return () => clearInterval(interval);
+}, [nextSlide]);
 
  
 
